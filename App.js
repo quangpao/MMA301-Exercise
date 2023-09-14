@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from "react-native";
+import ComponentIOS from "./.common_components/ComponentIOS";
+import ComponentAndroid from "./.common_components/ComponentAndroid";
+import React from "react";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {
+        Platform.select({
+          ios: () => <ComponentIOS/>,
+          android: () => <ComponentAndroid/>
+        })()
+      }
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
+    ...Platform.select({
+      ios: {
+        backgroundColor: 'yellow'
+      },
+      android: {
+        backgroundColor: 'green'
+      },
+      default: {
+        backgroundColor: 'red'
+      }
+    })
   },
 });
